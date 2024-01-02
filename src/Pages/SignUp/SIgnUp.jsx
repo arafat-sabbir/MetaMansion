@@ -4,11 +4,12 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { IoReturnUpBack } from "react-icons/io5";
-import axios from "axios";
 import useAuth from "../../Utility/Hooks/useAuth/useAuth";
+import useAxios from "../../Utility/Hooks/useAxios/useAxios";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const axios = useAxios()
   const location = useLocation();
   const imageHostingKey = import.meta.env.VITE_IMAGE_HOST_KEY;
   const imageHostingAPi = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
@@ -32,11 +33,6 @@ const SignUp = () => {
 
   //   Get the profession from the user
 
-  const [profession, setProfession] = useState("");
-  const handleProfession = (e) => {
-    setProfession(e.target.value);
-  };
-
   const onSubmit = async (data) => {
     const toastid = toast.loading("Sign Up Processing");
     const res = await axios.post(imageHostingAPi, formData, {
@@ -55,7 +51,6 @@ const SignUp = () => {
               email: data.email,
               name: data.name,
               photo: res.data.data.display_url,
-              type: profession,
               creationDate: new Date().toDateString(),
             };
 
@@ -70,7 +65,7 @@ const SignUp = () => {
             });
           })
 
-          //   If any error happen show it to the user
+            // If any error happen show it to the user
 
           .catch((error) => {
             toast.error(error);
@@ -88,9 +83,7 @@ const SignUp = () => {
   };
 
   return (
-    <div
-      className="bg-cover relative"
-    >
+    <div className="bg-cover relative">
       <Link to={"/"}>
         <button className=" text-black font-semibold flex justify-center gap-2  absolute lg:left-96 lg:top-10 top-0">
           {" "}
@@ -102,7 +95,7 @@ const SignUp = () => {
       </Link>
       <div className="flex h-screen gap-10 container mx-auto  justify-center items-center">
         <Helmet>
-          <title>Echo Estate || Sign Up</title>
+          <title>Meta Mansion || Sign Up</title>
         </Helmet>
         <div className="lg:w-1/2 w-[90vw]">
           <div className="card  lg:w-3/4  mx-auto shadow-[0_0_20px_] backdrop-blur-sm lg:p-10 my-10">
@@ -156,24 +149,6 @@ const SignUp = () => {
                   />
                 </div>
               </div>
-              {/* for selecting profession */}
-              <select
-                onChange={handleProfession}
-                className="select select-bordered mt-4 bg-gray-100 hover:bg-gray-100 border-dashed border-main focus:border-main join-item"
-                required
-              >
-                <option className=" " disabled selected>
-                  Select Your Profession
-                </option>
-                <option>Developer</option>
-                <option>Student</option>
-                <option>Engineer</option>
-                <option>Banker</option>
-                <option>Govt Job</option>
-                <option>Doctor</option>
-                <option>Other</option>
-              </select>
-              {/* end here */}
 
               <div className="form-control">
                 <label className="label">

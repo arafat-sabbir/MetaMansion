@@ -76,6 +76,7 @@ import app from "../Firebase/firebase.config";
       });
       return () => unsubscribe();
     }, [auth]);
+    console.log(user);
     return <Context.Provider value={contextValue}>{children}</Context.Provider>;
   };
   

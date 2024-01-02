@@ -26,16 +26,6 @@ const Navbar = () => {
       </li>
       <li><NavLink to={'/rooms'}>Rooms</NavLink></li>
       <li><NavLink to={'/myBookings'}>My Bookings</NavLink></li>
-      {user && (
-        <ul className="lg:flex drop-shadow-2xl ">
-          <li className={location.pathname=='/'?`hover:scale-110 duration-300 hover:text-main text-main font-bold`:"hover:scale-110 duration-300 hover:text-main"}>
-            <NavLink to={"/allProperties"}>All Properties</NavLink>
-          </li>
-          <li className={location.pathname=='/'?`hover:scale-110 duration-300 hover:text-main text-main font-bold`:"hover:scale-110 duration-300 hover:text-main"}>
-            <NavLink to={"/dashboard/myProfile"}>DashBoard</NavLink>
-          </li>
-        </ul>
-      )}
     </>
   );
   return (
@@ -122,7 +112,7 @@ const Navbar = () => {
           ) : (
             <div>
               <Link to={"/signIn "} className="">
-                <button className="btn ">Sign In</button>
+                <button className="btn bg-black border-b-4 border-b-main text-white">Sign In</button>
               </Link>
             </div>
           )}
