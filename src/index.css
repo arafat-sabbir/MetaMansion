@@ -4,7 +4,6 @@
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.025em !important;
   scroll-behavior: smooth !important;
-  overflow-x: hidden;
 }
 
 @tailwind base;

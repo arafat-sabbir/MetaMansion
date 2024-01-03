@@ -76,18 +76,19 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="dropdown dropdown-bottom dropdown-end z-50 ">
+        <div className="dropdown dropdown-bottom dropdown-end z-50 ">
             <label tabIndex={0} className="">
               {user && (
                 <img
                   className="w-12 mr-4 h-12  rounded-full border-2 border-main  "
-                  src={""}
+                  src={user?.photoURL}
                   alt=""
                 />
               )}
             </label>
+            
             {user && (
-              <ul className="p-2 shadow menu dropdown-content bg-[#072730da] z-[1]  rounded-box w-56">
+              <ul className="p-2 shadow menu dropdown-content bg-white z-[1]  rounded-box w-56">
                 <img
                   className=" w-12 mx-auto  rounded-full mb-2 mt-2 border-2 border-main"
                   src={user?.photoURL}
@@ -102,7 +103,7 @@ const Navbar = () => {
                 <div className="pb-2 mx-auto"
                   onClick={handleSignOut}
                   >
-                    <button>Sign Out</button>
+                    <button className="py-2 px-12 rounded-full mt-1  bg-black border-y-4 border-x-1 text-white border-main">Sign Out</button>
                 </div>
               </ul>
             )}
@@ -112,7 +113,7 @@ const Navbar = () => {
           ) : (
             <div>
               <Link to={"/signIn "} className="">
-                <button className="btn bg-black border-b-4 border-b-main text-white">Sign In</button>
+                <button className="px-6 py-2 font-medium bg-black border-b-4 border-b-main text-white">Sign In</button>
               </Link>
             </div>
           )}
