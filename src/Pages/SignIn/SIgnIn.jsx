@@ -29,7 +29,7 @@ const SignIn = () => {
       });
   };
   return (
-    <div className="bg-cover relative "
+    <div className="bg-cover relative  "
      
     >
         <Link to={'/'}>
@@ -86,7 +86,7 @@ const SignIn = () => {
                 />
               </div>
               <p className="font-medium my-4 text-center">
-                Don't have a account.?
+                Do not have a account.?
                 <Link className=" font-bold text-main ml-1" to={"/signUp"}>
                   SignUp
                 </Link>
