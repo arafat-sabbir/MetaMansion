@@ -1,6 +1,5 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import { useEffect, useState } from "react";
 import useAuth from "../../Utility/Hooks/useAuth/useAuth";
 
 
@@ -62,11 +61,11 @@ const Navbar = () => {
               className={location.pathname=='/'?`!flex font-black text-main  items-center  duration-300`:"!flex font-bold items-center duration-300 justify-center"}
             >
               <img
-                className="w-28 h-20 "
-                src="https://i.ibb.co/pWbvBb2/MEta-5.png"
+                className="w-28 h-20"
+                src="https://i.ibb.co/tb8CFXS/MEta-6.png"
                 alt=""
               />
-              <p className="text-2xl  font-semibold !text-black">Meta Mention</p>
+              <p className="text-2xl ml-5  font-semibold !text-black">Meta Mention</p>
             </Link>
           </div>
         </div>
