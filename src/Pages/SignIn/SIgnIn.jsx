@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 import { IoReturnUpBack } from "react-icons/io5";
 import useAuth from "../../Utility/Hooks/useAuth/useAuth";
+import GoogleSignIn from "../../Auth/SocialLogin/GoogleSIngIn/GoogleSIgnIn";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const SignIn = () => {
               </p>
             </form>
             <div className="w-3/4 mx-auto">
-             Btaldfjk
+             <GoogleSignIn></GoogleSignIn>
             </div>
           </div>
         </div>
