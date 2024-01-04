@@ -9,6 +9,7 @@ const Rooms = () => {
   const {
     data: rooms = [],
     isLoading,
+    isPending,
     refetch,
   } = useQuery({
     queryKey: ["rooms"],
@@ -17,8 +18,8 @@ const Rooms = () => {
       return response.data;
     },
   });
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isLoading||isPending ||!rooms?.length) {
+    return <div><span className="loading loading-dots loading-lg h-[70vh] mx-auto flex justify-center items-center "></span></div>;
   }
   return (
     <div className="container mx-auto">
