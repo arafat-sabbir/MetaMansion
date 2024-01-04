@@ -5,6 +5,8 @@ import SignIn from "../Pages/SignIn/SIgnIn";
 import SignUp from "../Pages/SignUp/SIgnUp";
 import Rooms from "../Pages/Rooms/Rooms";
 import RoomDetails from "../Pages/Rooms/RoomDetails";
+import PrivateRoute from "../Auth/PrivateRoute/PrivateRoute";
+import MyBookings from "../Pages/MyBookings/MyBookings";
 
 const routes = createBrowserRouter([
   {
@@ -16,13 +18,25 @@ const routes = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: '/rooms',
-        element: <Rooms></Rooms>
+        path: "/rooms",
+        element: <Rooms></Rooms>,
       },
       {
-        path:"/roomDetail/:id",
-        element:<RoomDetails></RoomDetails>
-      }
+        path: "/roomDetail/:id",
+        element: (
+          <PrivateRoute>
+            <RoomDetails></RoomDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myBookings",
+        element: (
+          <PrivateRoute>
+            <MyBookings></MyBookings>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
