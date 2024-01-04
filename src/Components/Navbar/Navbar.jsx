@@ -20,15 +20,15 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li className={location.pathname=='/'?`hover:scale-110 duration-300 hover:text-main text-main font-bold`:"hover:scale-110 duration-300 hover:text-main"}>
+      <li className={location.pathname=='/'?`hover:scale-110 duration-300 hover:text-main  font-bold !text-white`:"hover:scale-110 duration-300  hover:text-main"}>
         <NavLink to={"/"}>Home</NavLink>
       </li>
-      <li><NavLink to={'/rooms'}>Rooms</NavLink></li>
-      <li><NavLink to={'/myBookings'}>My Bookings</NavLink></li>
+      <li  className={location.pathname=='/'?`hover:scale-110 duration-300 hover:text-main  font-bold !text-white`:"hover:scale-110 duration-300  hover:text-main"}><NavLink to={'/rooms'}>Rooms</NavLink></li>
+      <li  className={location.pathname=='/'?`hover:scale-110 duration-300 hover:text-main  font-bold !text-white`:"hover:scale-110 duration-300  hover:text-main"}><NavLink to={'/myBookings'}>My Bookings</NavLink></li>
     </>
   );
   return (
-    <div className="">
+    <div className="relative">
       <div className={location.pathname=='/'?`navbar  justify-center  py-6 relative container mx-auto  z-50`:'navbar  justify-center  py-6  container mx-auto z-50 '}>
         <div className="navbar-start">
           <div className="dropdown">
@@ -65,7 +65,7 @@ const Navbar = () => {
                 src="https://i.ibb.co/tb8CFXS/MEta-6.png"
                 alt=""
               />
-              <p className="text-2xl ml-5  font-semibold !text-black">Meta Mention</p>
+              <p className="text-2xl ml-5  font-semibold text-main">Meta Mention</p>
             </Link>
           </div>
         </div>
