@@ -1,11 +1,19 @@
-const BookingCard = ({ room }) => {
+import { useEffect, useState } from "react";
+
+const BookingCard = ({ room,handleDelete }) => {
+    const [buttonDisable,setButtonDisabled] = useState(false);
   const DeadlineDate = new Date(room?.bookingDate);
   const today = new Date(Date.now());
-  const daydifferent = Math.floor(
+  const dayDifferent = Math.floor(
     (DeadlineDate - today) / (1000 * 60 * 60 * 24)
   );
 
-  console.log(daydifferent);
+  useEffect(() => {
+    if (dayDifferent < 1) {
+      setButtonDisabled(true);
+    }
+  }, [dayDifferent]);
+  console.log(buttonDisable);
   return (
     <div className="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
       <img
@@ -38,10 +46,10 @@ const BookingCard = ({ room }) => {
               </span>
             </h1>
             <div className="flex gap-2">
-              <button className="py-1 px-4 rounded-sm bg-main  text-white font-semibold">
+              <button onClick={()=>handleDelete(room._id)} disabled={buttonDisable} className={`${buttonDisable ? "py-1 px-4 rounded-sm bg-gray-300  text-white font-semibold !cursor-not-allowed":'py-1 px-4 rounded-sm bg-main  text-white font-semibold '} `}>
                 delete
               </button>
-              <button className="py-1 px-4 rounded-sm bg-main  text-white font-semibold">
+              <button className="py-1 px-4 rounded-sm bg-green-600  text-white font-semibold" >
                 update
               </button>
             </div>
