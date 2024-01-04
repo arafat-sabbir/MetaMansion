@@ -17,7 +17,9 @@ const RoomDetails = () => {
       return response.data;
     },
   });
-  const 
+  const handleRoomBooking = (id)=>{
+    console.log(id);
+  }
   
   return (
     <div className="container mx-auto my-16">
@@ -36,7 +38,7 @@ const RoomDetails = () => {
           <p>Availability : <span className="uppercase">{room.availability}</span></p>
           {
             room.availability==="available"&&<div>
-              <button className="py-2 px-3 rounded-xm bg-black border-b-4 border-b-main text-white">Book Now</button>
+              <button onClick={()=>handleRoomBooking(room._id)} className="py-2 px-3 rounded-xm bg-black border-b-4 border-b-main text-white">Book Now</button>
               </div>
           }
         </div>
