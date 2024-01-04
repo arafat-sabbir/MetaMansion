@@ -33,11 +33,11 @@ const Rooms = () => {
           Our Rooms
         </h1>
       </div>
-      <div className="container mx-auto">
+      <div className="container mx-auto my-20">
         <h3 className="text-2xl text-red-600 text-center font-bold">
           ------ Service Since 2010 ------
         </h3>
-        <h4 className="text-xl text-gray-600 text-center ">
+        <h4 className="text-xl text-gray-600 text-center">
           Our objective at Bluebell is to bring together our visitor societies
           and spirits with our own, communicating enthusiasm <br /> and
           liberality in the food we share. Official Chef and Owner Philippe
