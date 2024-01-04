@@ -1,6 +1,11 @@
+import { Helmet } from "react-helmet";
+
 const Rooms = () => {
    return (
       <div>
+         <Helmet>
+            <title>MetaMansion || Rooms</title>
+         </Helmet>
          <div>
             <img
                className="w-full h-[500px]"
@@ -17,9 +22,9 @@ const Rooms = () => {
             </h3>
             <h4 className="text-xl text-gray-600 text-center">
                Our objective at Bluebell is to bring together our visitor
-               societies and spirits with our own, communicating enthusiasm <br /> and
-               liberality in the food we share. Official Chef and Owner Philippe
-               Massoud superbl.
+               societies and spirits with our own, communicating enthusiasm{" "}
+               <br /> and liberality in the food we share. Official Chef and
+               Owner Philippe Massoud superbl.
             </h4>
          </div>
       </div>
