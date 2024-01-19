@@ -1,53 +1,54 @@
 import {
-    GoogleAuthProvider,
-    createUserWithEmailAndPassword,
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-    updateProfile,
-  } from "firebase/auth";
-  
-  import { createContext, useEffect, useState } from "react";
-  import PropTypes from "prop-types";
+   GoogleAuthProvider,
+   createUserWithEmailAndPassword,
+   getAuth,
+   onAuthStateChanged,
+   signInWithEmailAndPassword,
+   signInWithPopup,
+   signOut,
+   updateProfile,
+} from "firebase/auth";
+
+import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import app from "../Firebase/firebase.config";
-  
-  export const Context = createContext("");
-  
-  const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState("");
-    const [loader, setLoader] = useState(true);
-    const auth = getAuth(app);
-  
-    const googleProvider = new GoogleAuthProvider();
-  
-    const signWithGoogle = () => {
+import axios from "axios";
+
+export const Context = createContext("");
+
+const AuthProvider = ({ children }) => {
+   const [user, setUser] = useState("");
+   const [loader, setLoader] = useState(true);
+   const auth = getAuth(app);
+
+   const googleProvider = new GoogleAuthProvider();
+
+   const signWithGoogle = () => {
       setLoader(true);
       return signInWithPopup(auth, googleProvider);
-    };
-  
-    const signUpUser = (email, password) => {
+   };
+
+   const signUpUser = (email, password) => {
       setLoader(true);
       return createUserWithEmailAndPassword(auth, email, password);
-    };
-  
-    const updateUserProfile = (name, photoUrl) => {
+   };
+
+   const updateUserProfile = (name, photoUrl) => {
       setLoader(true);
       return updateProfile(auth.currentUser, {
-        displayName: name,
-        photoURL: photoUrl,
+         displayName: name,
+         photoURL: photoUrl,
       });
-    };
-    const signInUser = (email, password) => {
+   };
+   const signInUser = (email, password) => {
       setLoader(true);
       return signInWithEmailAndPassword(auth, email, password);
-    };
-    const signOutUser = () => {
+   };
+   const signOutUser = () => {
       return signOut(auth);
-    };
-  
-    const contextValue = {
+   };
+
+   const contextValue = {
       signUpUser,
       signInUser,
       signWithGoogle,
@@ -55,34 +56,52 @@ import app from "../Firebase/firebase.config";
       loader,
       signOutUser,
       updateUserProfile,
-    };
-    useEffect(() => {
+   };
+   useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        setLoader(false);
-        // if (currentUser) {
-        //   const user = { email: currentUser.email };
-        //   axiosPublic.post("/user/accessToken", user).then((res) => {
-        //     const token = res.data.token;
-        //     if (token) {
-        //       localStorage.setItem("access-token", token);
-        //       setLoader(false);
-        //     }
-        //   });
-        // } else {
-        //   localStorage.removeItem("access-token");
-        //   setLoader(false);
-        // }
+         const userEmail = currentUser?.email || user?.email;
+         const loggedUser = { email: userEmail };
+
+         setUser(currentUser);
+         setLoader(false);
+         //  if (currentUser) {
+         //    const user = { email: currentUser.email };
+         //    axios.post("/user/accessToken", user).then((res) => {
+         //      const token = res.data.token;
+         //      if (token) {
+         //        localStorage.setItem("access-token", token);
+         //        setLoader(false);
+         //      }
+         //    });
+         //  } else {
+         //    localStorage.removeItem("access-token");
+         //    setLoader(false);
+         //  }
+         if (currentUser) {
+            axios
+               .post("http://localhost:5000/jwt", loggedUser, {
+                  withCredentials: true,
+               })
+               .then((res) => {
+                  console.log(res.data);
+               });
+         } else {
+            axios.post("http://localhost:5000/signout", loggedUser, {
+               withCredentials: true,
+            })
+            .then(res=>{
+              console.log(res.data)
+            })
+         }
       });
       return () => unsubscribe();
-    }, [auth]);
-    console.log(user);
-    return <Context.Provider value={contextValue}>{children}</Context.Provider>;
-  };
-  
-  export default AuthProvider;
-  
-  AuthProvider.propTypes = {
-    children: PropTypes.node,
-  };
-  
+   }, [auth]);
+   console.log(user);
+   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
+};
+
+export default AuthProvider;
+
+AuthProvider.propTypes = {
+   children: PropTypes.node,
+};
