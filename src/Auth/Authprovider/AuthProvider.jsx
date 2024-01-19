@@ -95,7 +95,7 @@ const AuthProvider = ({ children }) => {
          }
       });
       return () => unsubscribe();
-   }, [auth]);
+   }, [auth,user?.email]);
    console.log(user);
    return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };

@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
-import { IoReturnUpBack } from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
 import useAuth from "../../Utility/Hooks/useAuth/useAuth";
 import GoogleSignIn from "../../Auth/SocialLogin/GoogleSIngIn/GoogleSIgnIn";
 
@@ -24,22 +24,25 @@ const SignIn = () => {
         console.log(res);
       })
       .catch((error) => {
-      if(error.message){
-        toast.error("Invalid Email And Password",{id:toastid})
-      }
+        if (error.message) {
+          toast.error("Invalid Email And Password", { id: toastid });
+        }
       });
   };
   return (
-    <div className="bg-cover relative  "
-     
-    >
-        <Link to={'/'}>
-       <button className=" text-black font-semibold flex justify-center gap-2  absolute lg:left-96 lg:top-10 top-4 left-2"> <span className="text-2xl"><IoReturnUpBack/></span> Back To Home</button>
-       </Link>
+    <div className="bg-cover relative  ">
+      <Link to={"/"}>
+        <button className=" text-black font-semibold flex justify-center gap-2 items-center hover:text-main transition duration-300  absolute lg:left-96 lg:top-10 top-0">
+          <span className="text-2xl">
+            <IoHomeOutline size={26} />
+          </span>
+          Back To Home
+        </button>
+      </Link>
       <div className="flex h-screen gap-10 container mx-auto  justify-center items-center">
-      <Helmet>
-        <title>Task Vault || Sign In</title>
-      </Helmet>
+        <Helmet>
+          <title>Task Vault || Sign In</title>
+        </Helmet>
         <div className="lg:w-1/2 w-[90vw]">
           <div className="card  lg:w-3/4  mx-auto shadow-[0_0_20px_] backdrop-blur-sm lg:p-10 lg:my-10 bg-transparent">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
@@ -94,7 +97,7 @@ const SignIn = () => {
               </p>
             </form>
             <div className="w-3/4 mx-auto">
-             <GoogleSignIn></GoogleSignIn>
+              <GoogleSignIn></GoogleSignIn>
             </div>
           </div>
         </div>

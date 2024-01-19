@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
-import { IoReturnUpBack } from "react-icons/io5";
+import { IoHomeOutline} from "react-icons/io5";
 import useAuth from "../../Utility/Hooks/useAuth/useAuth";
 import useAxios from "../../Utility/Hooks/useAxios/useAxios";
 
@@ -85,11 +85,10 @@ const SignUp = () => {
   return (
     <div className="bg-cover relative">
       <Link to={"/"}>
-        <button className=" text-black font-semibold flex justify-center gap-2  absolute lg:left-96 lg:top-10 top-0">
-          {" "}
+        <button className=" text-black font-semibold flex justify-center gap-2 items-center hover:text-main transition duration-300  absolute lg:left-96 lg:top-10 top-0">
           <span className="text-2xl">
-            <IoReturnUpBack />
-          </span>{" "}
+          <IoHomeOutline size={26}/>
+          </span>
           Back To Home
         </button>
       </Link>

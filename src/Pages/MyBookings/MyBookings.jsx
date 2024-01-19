@@ -3,6 +3,7 @@ import useAxios from "../../Utility/Hooks/useAxios/useAxios";
 import useAuth from "../../Utility/Hooks/useAuth/useAuth";
 import BookingCard from "./BookingCard";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const MyBookings = () => {
   const axios = useAxios();
@@ -19,7 +20,21 @@ const MyBookings = () => {
       return response.data;
     },
   });
- 
+
+  const handleBookingUpdate = (id, date) => {
+   const toastId =  toast.loading("Updating Booking date")
+   const bookingDate = date.toDateString()
+   const data = {bookingDate}
+    axios.patch(`/updateBookingDate/${id}`,data)
+    .then(res=>{
+      if(res.data.modifiedCount>0){
+        toast.success("Booking Date Updated Successfully",{id:toastId})
+      }
+    })
+      document.getElementById("my_modal_1").close()
+    
+  };
+
   if (isLoading || isPending || !myBookings.length) {
     return (
       <div>
@@ -27,8 +42,7 @@ const MyBookings = () => {
       </div>
     );
   }
-  const handleDelete = (id) => {
-    console.log(id);
+  const handleDelete = (id, status) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -36,13 +50,19 @@ const MyBookings = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: `${status ? "Yes, Cancel it!" : "Yes, delete it!"}`,
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`/deleteBooking/${id}`).then((res) => {
           console.log(res.data);
           if (res.data.deletedCount > 0) {
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            toast.success(
+              `${
+                status
+                  ? "Your Bookings has been Canceled"
+                  : "Your Bookings has been deleted"
+              }`
+            );
             refetch();
           }
         });
@@ -51,9 +71,17 @@ const MyBookings = () => {
   };
   return (
     <div className="container mx-auto my-20">
-     <div className="grid grid-cols-1 lg:grid-cols-2">
-     {myBookings?.map((room) => <BookingCard handleDelete={handleDelete} key={room._id} room={room}></BookingCard>)}
-     </div>
+      <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
+        {myBookings?.map((room) => (
+          <BookingCard
+            refetch={refetch}
+            handleBookingUpdate={handleBookingUpdate}
+            handleDelete={handleDelete}
+            key={room._id}
+            room={room}
+          ></BookingCard>
+        ))}
+      </div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 const Banner = () => {
    return (
       <div className="lg:-m-32">
-         <Swiper
+         <Swiper className="w-[99vw]"
             spaceBetween={30}
             centeredSlides={true}
             autoplay={{

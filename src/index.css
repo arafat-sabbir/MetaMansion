@@ -2,9 +2,6 @@
 
 *{
   font-family: 'Inter', sans-serif !important;
-  letter-spacing: 0.025em !important;
-  scroll-behavior: smooth !important;
-
 }
 
 @tailwind base;
