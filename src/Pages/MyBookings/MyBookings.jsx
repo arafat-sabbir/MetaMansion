@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 const MyBookings = () => {
   const axios = useAxios();
   const { user } = useAuth();
+  // Get My Bookings Data
   const {
     data: myBookings,
     isLoading,
@@ -20,7 +21,7 @@ const MyBookings = () => {
       return response.data;
     },
   });
-
+// Update Bookings 
   const handleBookingUpdate = (id, date) => {
    const toastId =  toast.loading("Updating Booking date")
    const bookingDate = date.toDateString()
@@ -29,13 +30,18 @@ const MyBookings = () => {
     .then(res=>{
       if(res.data.modifiedCount>0){
         toast.success("Booking Date Updated Successfully",{id:toastId})
+        refetch()
       }
     })
       document.getElementById("my_modal_1").close()
     
   };
 
-  if (isLoading || isPending || !myBookings.length) {
+  const handleReview = (data)=>{
+    console.log(data);
+  }
+
+  if (isLoading || isPending ) {
     return (
       <div>
         <span className="loading loading-dots loading-lg h-[70vh] mx-auto flex justify-center items-center "></span>
@@ -70,7 +76,7 @@ const MyBookings = () => {
     });
   };
   return (
-    <div className="container mx-auto my-20">
+    <div className="container mx-auto my-20 min-h-[calc(100vh-561px)]">
       <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
         {myBookings?.map((room) => (
           <BookingCard
@@ -79,6 +85,7 @@ const MyBookings = () => {
             handleDelete={handleDelete}
             key={room._id}
             room={room}
+            handleReview={handleReview}
           ></BookingCard>
         ))}
       </div>

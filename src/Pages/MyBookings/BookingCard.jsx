@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const BookingCard = ({ room, handleDelete,handleBookingUpdate, refetch }) => {
+const BookingCard = ({ room, handleDelete,handleBookingUpdate, handleReview }) => {
   const [buttonDisable, setButtonDisabled] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const DeadlineDate = new Date(room?.bookingDate);
@@ -17,6 +17,8 @@ const BookingCard = ({ room, handleDelete,handleBookingUpdate, refetch }) => {
       setButtonDisabled(true);
     }
   }, [dayDifferent]);
+
+  const [review,setReview] = useState('')
   return (
     <div className="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
       <img
@@ -47,6 +49,7 @@ const BookingCard = ({ room, handleDelete,handleBookingUpdate, refetch }) => {
                 {room.bookingDate}
               </span>
             </h1>
+            {/* Update Modal */}
             <dialog id="my_modal_1" className="modal">
             <div className="modal-box w-[500px] h-[320px] flex relative">
               <div className="">
@@ -69,6 +72,23 @@ const BookingCard = ({ room, handleDelete,handleBookingUpdate, refetch }) => {
                 } className="btn ml-auto absolute bottom-4 right-44 py-1 px-4 rounded-sm bg-red-600  text-white font-semibold hover:bg-red-600">Cancel</button>
             </div>
           </dialog>
+          {/* Review Modal */}
+            <dialog id="my_modal_2" className="modal">
+            <div className="modal-box w-[500px] h-[320px] flex relative">
+              <div className="">
+                <textarea onChange={(e)=>setReview(e.target.value)} cols="30" className="p-4 placeholder:font-semibold border-2" placeholder="Your Review" rows="5"></textarea>
+              </div>
+              <button
+                onClick={()=>handleReview(room._id,review)}
+                className="btn ml-auto absolute bottom-4 right-4 py-1 px-4 rounded-sm bg-green-600  text-white font-semibold hover:bg-green-600"
+              >
+                Submit Review
+              </button>
+              <button  onClick={() =>
+                  document.getElementById("my_modal_2").close()
+                } className="btn ml-auto absolute bottom-4 right-44 py-1 px-4 rounded-sm bg-red-600  text-white font-semibold hover:bg-red-600">Cancel</button>
+            </div>
+          </dialog>
             <div className="flex gap-2">
               <button onClick={() =>
                   document.getElementById("my_modal_1").showModal()
@@ -77,6 +97,7 @@ const BookingCard = ({ room, handleDelete,handleBookingUpdate, refetch }) => {
               >
                 Update
               </button>
+              {/* Cancel Button */}
              {
                buttonDisable? <button
                  className="py-1 px-4 rounded-sm bg-gray-100 disabled text-gray-400 cursor-not-allowed font-semibold"
@@ -89,6 +110,14 @@ const BookingCard = ({ room, handleDelete,handleBookingUpdate, refetch }) => {
                 Cancel
               </button>
              }
+             {/* Review Button */}
+              <button
+              onClick={()=> document.getElementById("my_modal_2").showModal()}
+                className="py-1 px-4 rounded-sm bg-slate-600  text-white font-semibold "
+              >
+                Review
+              </button>
+              {/* Delete Button */}
               <button
                 onClick={() => handleDelete(room._id)}
                 className="py-1 px-4 rounded-sm bg-main  text-white font-semibold "

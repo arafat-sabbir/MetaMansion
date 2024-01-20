@@ -72,7 +72,7 @@ console.log(roomData);
                 />
               </div>
               <button
-                onClick={()=>handleRoomBooking()}
+                onClick={()=>handleRoomBooking(room._id)}
                 className="btn ml-auto absolute bottom-4 right-4 py-1 px-4 rounded-sm bg-green-600  text-white font-semibold hover:bg-green-600"
               >
                 Book Now

@@ -65,7 +65,7 @@ const Navbar = () => {
                 src="https://i.ibb.co/tb8CFXS/MEta-6.png"
                 alt=""
               />
-              <p className="text-2xl ml-5  font-semibold text-main">Meta Mention</p>
+              <p className={`${location.pathname==="/"?"text-2xl ml-5 text-white font-semibold":'text-2xl ml-5  font-semibold text-main'}`}>Meta Mention</p>
             </Link>
           </div>
         </div>
