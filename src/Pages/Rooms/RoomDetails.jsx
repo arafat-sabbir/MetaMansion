@@ -11,6 +11,20 @@ const RoomDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const axios = useAxios();
+  const {
+    data: review,
+    isLoading,
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["review"],
+    queryFn: async () => {
+      const res = await axios.get(`/getReview/${id}`);
+      return res.data;
+    },
+  });
+  console.log(isLoading, review, isPending);
+
   const { data: room = [], refetch } = useQuery({
     queryKey: ["rooms"],
     queryFn: async () => {
@@ -29,9 +43,9 @@ const RoomDetails = () => {
       price_per_night: room.price_per_night,
       room_size: room.room_size,
       userEmail: user.email,
-      bookingDate: startDate.toDateString()
+      bookingDate: startDate.toDateString(),
     };
-console.log(roomData);
+    console.log(roomData);
     await axios.post("/bookRoom", roomData).then((res) => {
       if (res.data.insertedId) {
         toast.success("Room Booked Successfully", { id: toastId });
@@ -72,7 +86,7 @@ console.log(roomData);
                 />
               </div>
               <button
-                onClick={()=>handleRoomBooking(room._id)}
+                onClick={() => handleRoomBooking(room._id)}
                 className="btn ml-auto absolute bottom-4 right-4 py-1 px-4 rounded-sm bg-green-600  text-white font-semibold hover:bg-green-600"
               >
                 Book Now
@@ -92,6 +106,36 @@ console.log(roomData);
             </div>
           )}
         </div>
+      </div>
+      {/* Review Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20 justify-center items-center ">
+        {review?.map((room, index) => (
+          <div key={index}>
+            <div className="w-full relative min-h-[200px] max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-[0_0_70px_#D3D6D9] dark:bg-gray-800">
+              <div className="flex justify-center -mt-16 md:justify-end">
+                <img
+                  className="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400"
+                  alt="Testimonial avatar"
+                  src={room?.ReviewerPhoto}
+                />
+              </div>
+
+              <h2 className="mt-2 text-xl font-semibold text-gray-800 dark:text-white md:mt-0">
+                {room.RoomName}
+              </h2>
+
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-200">
+                {room.Review}
+              </p>
+
+              <div className="flex justify-end mt-4">
+                <p className="text-lg absolute bottom-4 right-4 font-medium text-blue-600 dark:text-blue-300">
+                  Reviewer : {room.ReviewerName}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

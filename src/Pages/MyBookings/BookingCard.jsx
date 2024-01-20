@@ -79,7 +79,7 @@ const BookingCard = ({ room, handleDelete,handleBookingUpdate, handleReview }) =
                 <textarea onChange={(e)=>setReview(e.target.value)} cols="30" className="p-4 placeholder:font-semibold border-2" placeholder="Your Review" rows="5"></textarea>
               </div>
               <button
-                onClick={()=>handleReview(room._id,review)}
+                onClick={()=>handleReview(room.roomId,review,room.room_name)}
                 className="btn ml-auto absolute bottom-4 right-4 py-1 px-4 rounded-sm bg-green-600  text-white font-semibold hover:bg-green-600"
               >
                 Submit Review

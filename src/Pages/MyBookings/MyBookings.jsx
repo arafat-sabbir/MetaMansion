@@ -36,9 +36,25 @@ const MyBookings = () => {
       document.getElementById("my_modal_1").close()
     
   };
-
-  const handleReview = (data)=>{
-    console.log(data);
+// Submit Review handler
+  const handleReview = (id,review,name)=>{
+    const toastId = toast.loading("Adding Review")
+    const ReviewData ={
+      RoomId:id,
+      ReviewerEmail:user.email,
+      ReviewerPhoto:user.photoURL,
+      RoomName:name,
+      ReviewDate :new Date().toDateString(),
+      ReviewerName:user.displayName,
+      Review:review
+    }
+    axios.post('/addReview',ReviewData)
+    .then(res=>{
+      if(res.data.insertedId){
+        toast.success("Review Added SuccessFully",{id:toastId})
+      }
+    })
+    document.getElementById("my_modal_2").close()
   }
 
   if (isLoading || isPending ) {
