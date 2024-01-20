@@ -108,7 +108,7 @@ const RoomDetails = () => {
         </div>
       </div>
       {/* Review Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20 justify-center items-center ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 justify-center items-center ">
         {review?.map((room, index) => (
           <div key={index}>
             <div className="w-full relative min-h-[200px] max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-[0_0_70px_#D3D6D9] dark:bg-gray-800">

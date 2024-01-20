@@ -12,11 +12,12 @@ import {
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import app from "../Firebase/firebase.config";
-import axios from "axios";
+import useAxios from "../../Utility/Hooks/useAxios/useAxios";
 
 export const Context = createContext("");
 
 const AuthProvider = ({ children }) => {
+   const axios  = useAxios()
    const [user, setUser] = useState("");
    const [loader, setLoader] = useState(true);
    const auth = getAuth(app);
@@ -79,14 +80,14 @@ const AuthProvider = ({ children }) => {
          //  }
          if (currentUser) {
             axios
-               .post("http://localhost:5000/jwt", loggedUser, {
+               .post("/jwt", loggedUser, {
                   withCredentials: true,
                })
                .then((res) => {
                   console.log(res.data);
                });
          } else {
-            axios.post("http://localhost:5000/signout", loggedUser, {
+            axios.post("/signout", loggedUser, {
                withCredentials: true,
             })
             .then(res=>{
